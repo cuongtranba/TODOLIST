@@ -7,7 +7,7 @@ using TODOLIST.Models.Entity;
 
 namespace TODOLIST.DbContext
 {
-    public class ToDoListContext:System.Data.Entity.DbContext
+    public class ToDoListContext:System.Data.Entity.DbContext,IDbFactory<ToDoListContext>
     {
         public ToDoListContext():base("ToDoListConnectionString")
         {
@@ -28,6 +28,11 @@ namespace TODOLIST.DbContext
                 dynamic configurationInstance = Activator.CreateInstance(type);
                 modelBuilder.Configurations.Add(configurationInstance);
             }
+        }
+
+        public ToDoListContext CreateInstance()
+        {
+            return this;
         }
     }
 }

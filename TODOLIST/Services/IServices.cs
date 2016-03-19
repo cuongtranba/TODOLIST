@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace TODOLIST.Services
 {
-    public interface IServices
+    public interface IServices<T,V>
     {
-
+        int Update(T model);
+        int Delete(T model);
+        int Add(T model);
+        IList<T> GetAll();
+        T GetById(V id);
     }
 }
