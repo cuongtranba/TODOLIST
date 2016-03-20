@@ -5,17 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using TODOLIST.DbContext;
+using TODOLIST.Models.Entity;
+using TODOLIST.Services;
 
 namespace TODOLIST.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IComponentContext componentContext;
 
-        public HomeController(IComponentContext componentContext)
-        {
-            this.componentContext = componentContext;
-        }
 
         public ActionResult Index()
         {
