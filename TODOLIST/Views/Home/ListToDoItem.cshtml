@@ -1,0 +1,15 @@
+﻿@model TODOLIST.Models.ViewModels.ListTodoItemViewModel
+
+<ul id="sortable" class="list-unstyled">
+
+    @foreach (var item in Model.Items)
+    {
+        <li class="ui-state-default">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="" />@item.Description
+                </label>
+            </div>
+        </li>
+    }
+</ul>

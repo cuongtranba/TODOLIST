@@ -1,35 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using TODOLIST.DbContext;
 using TODOLIST.Models.Entity;
 
 namespace TODOLIST.Services.Implements
 {
-    public abstract class BaseService<T,V> where T:BaseEntity
+    public abstract class BaseService<T, V> where T : BaseEntity
     {
-        
-        public virtual int Update(T model)
+        private IDbFactory<ToDoListContext> DbFactory;
+        protected DbSet<T> DbSet => DbFactory.GetInstance().Set<T>();
+        protected BaseService(IDbFactory<ToDoListContext> dbFactory)
         {
-            throw new NotImplementedException();
+            DbFactory = dbFactory;
         }
-        public virtual int Delete(T model)
+
+        public virtual void Update(T model)
         {
-            throw new NotImplementedException();
+            DbFactory.GetInstance().Entry(model).State = EntityState.Modified;
         }
-        public virtual int Add(T model)
+        public virtual void Delete(T model)
         {
-            throw new NotImplementedException();
+            model.IsDeleted = true;
+        }
+        public virtual void Add(T model)
+        {
+            DbSet.Add(model);
         }
 
         public virtual IList<T> GetAll()
         {
-            throw new NotImplementedException();
+            return DbSet.ToList();
         }
 
         public virtual T GetById(V id)
         {
-            throw new NotImplementedException();
+            return DbSet.Find(id);
         }
 
     }

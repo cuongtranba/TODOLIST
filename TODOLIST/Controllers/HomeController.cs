@@ -4,14 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
+using AutoMapper;
 using TODOLIST.DbContext;
 using TODOLIST.Models.Entity;
+using TODOLIST.Models.ViewModels;
 using TODOLIST.Services;
+using TODOLIST.Services.Interfaces;
 
 namespace TODOLIST.Controllers
 {
     public class HomeController : Controller
     {
+
+        private IToDoItemService toDoItemService;
+
+        public HomeController(IToDoItemService toDoItemService)
+        {
+            this.toDoItemService = toDoItemService;
+        }
 
 
         public ActionResult Index()
@@ -19,17 +29,23 @@ namespace TODOLIST.Controllers
             return View();
         }
 
+        [ChildActionOnly]
+        public ActionResult GetListToDoItem()
+        {
+            var model = toDoItemService.GetAll();
+            var viewmodel = new ListTodoItemViewModel();
+            return PartialView("ListToDoItem");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

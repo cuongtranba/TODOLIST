@@ -30,7 +30,7 @@ namespace TODOLIST.DbContext
             }
         }
 
-        public ToDoListContext CreateInstance()
+        public ToDoListContext GetInstance()
         {
             return this;
         }

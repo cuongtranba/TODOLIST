@@ -2,6 +2,6 @@
 {
     public interface IDbFactory<T>
     {
-        T CreateInstance();
+        T GetInstance();
     }
 }

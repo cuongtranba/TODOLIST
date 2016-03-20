@@ -7,7 +7,7 @@ namespace TODOLIST.DbContext
 {
     public class ToDoListNHibernate:IDbFactory<ToDoListNHibernate>
     {
-        public ToDoListNHibernate CreateInstance()
+        public ToDoListNHibernate GetInstance()
         {
             return this;
         }

@@ -2,7 +2,7 @@
 
 namespace TODOLIST.Services.Interfaces
 {
-    public interface IToDoItem:IServices<ToDoListItem,int>
+    public interface IToDoItemService:IServices<ToDoListItem,int>
     {
 
     }

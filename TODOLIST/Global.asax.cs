@@ -17,6 +17,7 @@ namespace TODOLIST
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             IocConfig.Register();
+            AutoMapperBootStrapper.BootStrap();
         }
     }
 }
