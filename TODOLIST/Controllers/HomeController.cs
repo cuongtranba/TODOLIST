@@ -33,8 +33,9 @@ namespace TODOLIST.Controllers
         public ActionResult GetListToDoItem()
         {
             var model = toDoItemService.GetAll();
-            var viewmodel = new ListTodoItemViewModel();
-            return PartialView("ListToDoItem");
+            var productsDto = Mapper.Map<List<ToDoListItem>, ListTodoItemViewModel>((List<ToDoListItem>) model);
+
+            return PartialView("ListToDoItem", productsDto);
         }
 
         public ActionResult About()
