@@ -142,6 +142,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DbContext\IDbFactory.cs" />
     <Compile Include="DbContext\ToDoListNHibernate.cs" />
@@ -151,6 +152,10 @@
     <Compile Include="Migrations\201603180449022_AddToDoListItemTable.cs" />
     <Compile Include="Migrations\201603180449022_AddToDoListItemTable.Designer.cs">
       <DependentUpon>201603180449022_AddToDoListItemTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603211605346_AddOrderField.cs" />
+    <Compile Include="Migrations\201603211605346_AddOrderField.Designer.cs">
+      <DependentUpon>201603211605346_AddOrderField.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\BaseEntity.cs" />
@@ -255,6 +260,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201603180449022_AddToDoListItemTable.resx">
       <DependentUpon>201603180449022_AddToDoListItemTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603211605346_AddOrderField.resx">
+      <DependentUpon>201603211605346_AddOrderField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -13,7 +13,7 @@ using TODOLIST.Services.Interfaces;
 
 namespace TODOLIST.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
 
         private IToDoItemService toDoItemService;
@@ -32,10 +32,19 @@ namespace TODOLIST.Controllers
         [ChildActionOnly]
         public ActionResult GetListToDoItem()
         {
-            var model = toDoItemService.GetAll();
-            var productsDto = Mapper.Map<List<ToDoListItem>, ListTodoItemViewModel>((List<ToDoListItem>) model);
+            var model = toDoItemService.GetAll().OrderByDescending(c=>c.Order).ToList();
 
-            return PartialView("ListToDoItem", productsDto);
+            var listToDoViewModel = Mapper.Map<List<ToDoListItem>, ListTodoItemViewModel>((List<ToDoListItem>) model);
+
+            return PartialView("ListToDoItem", listToDoViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult CreateTodo(ToDoItemViewModel toDoItemViewModel)
+        {
+            var model=Mapper.Map<ToDoItemViewModel, ToDoListItem>(toDoItemViewModel);
+            toDoItemService.Add(model);
+            return Json(new {issuccess = true},JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()

@@ -35,12 +35,12 @@ namespace TODOLIST
 
         private static void RegisterDbFactory(ContainerBuilder builder)
         {
-            builder.RegisterAssemblyTypes(typeof(IDbFactory<>).Assembly).AsClosedTypesOf(typeof(IDbFactory<>));
+            builder.RegisterAssemblyTypes(typeof(IDbFactory<>).Assembly).AsClosedTypesOf(typeof(IDbFactory<>)).InstancePerRequest();
         }
 
         private static void RegisterMVC(ContainerBuilder builder)
         {
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
         }
     }
 }

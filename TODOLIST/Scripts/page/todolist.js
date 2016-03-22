@@ -10,9 +10,9 @@ $("#checkAll").click(function () {
 
 //create todo
 $('.add-todo').on('keypress', function (e) {
-    e.preventDefault
+    e.preventDefault;
     if (e.which == 13) {
-        if ($(this).val() != '') {
+        if ($(this).val()) {
             var todo = $(this).val();
             createTodo(todo);
             countTodos();
@@ -32,14 +32,14 @@ $('.todolist').on('change', '#sortable li input[type="checkbox"]', function () {
 });
 
 //delete done task from "already done"
-$('.todolist').on('click', '.remove-item', function () {
+$(".todolist").on("click", ".remove-item", function () {
     removeItem(this);
 });
 
 // count tasks
 function countTodos() {
     var count = $("#sortable li").length;
-    $('.count-todos').html(count);
+    $(".count-todos").html(count);
 }
 
 //create task
@@ -47,6 +47,9 @@ function createTodo(text) {
     var markup = '<li class="ui-state-default"><div class="checkbox"><label><input type="checkbox" value="" />' + text + '</label></div></li>';
     $('#sortable').append(markup);
     $('.add-todo').val('');
+    $.post("home/Createtodo", { Description: text }, function (data) {
+        $(".result").html(data);
+    });
 }
 
 //mark task as done

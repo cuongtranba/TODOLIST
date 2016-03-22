@@ -11,5 +11,10 @@ namespace TODOLIST.DbContext
         {
             return this;
         }
+
+        public void SaveChange()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

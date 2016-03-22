@@ -10,10 +10,10 @@ namespace TODOLIST
         {
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<ToDoListItem, ToDoItemViewModel>();
+                cfg.CreateMap<ToDoListItem, ToDoItemViewModel>().ReverseMap();
                 cfg.CreateMap<List<ToDoListItem>, ListTodoItemViewModel>().ForMember(dest => dest.Items, opt => opt.MapFrom(
                                 src => Mapper.Map<List<ToDoListItem>,
-                                                  List<ToDoItemViewModel>>(src)));
+                                                  List<ToDoItemViewModel>>(src))).ReverseMap();
             });
         }
     }
