@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
+using AutoMapper;
+using AutoMapper.Mappers;
 using TODOLIST.DbContext;
 
 namespace TODOLIST

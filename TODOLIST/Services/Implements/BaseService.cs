@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using TODOLIST.DbContext;
 using TODOLIST.Models.Entity;
@@ -12,6 +13,7 @@ namespace TODOLIST.Services.Implements
     {
         private IDbFactory<ToDoListContext> DbFactory;
         protected DbSet<T> DbSet => DbFactory.GetInstance().Set<T>();
+
         protected BaseService(IDbFactory<ToDoListContext> dbFactory)
         {
             DbFactory = dbFactory;
@@ -21,6 +23,18 @@ namespace TODOLIST.Services.Implements
         {
             DbFactory.GetInstance().Entry(model).State = EntityState.Modified;
         }
+
+        //ref http://stackoverflow.com/questions/15336248/entity-framework-5-updating-a-record
+        public void Update(T model, params Expression<Func<T, object>>[] propertiesToUpdate)
+        {
+            DbFactory.GetInstance().Set<T>().Attach(model);
+
+            foreach (var p in propertiesToUpdate)
+            {
+                DbFactory.GetInstance().Entry(model).Property(p).IsModified = true;
+            }
+        }
+
         public virtual void Delete(T model)
         {
             model.IsDeleted = true;

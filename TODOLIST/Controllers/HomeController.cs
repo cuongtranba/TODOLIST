@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using AutoMapper;
 using TODOLIST.DbContext;
 using TODOLIST.Models.Entity;
-using TODOLIST.Models.ViewModels;
 using TODOLIST.Services;
 using TODOLIST.Services.Interfaces;
+using TODOLIST.ViewModels;
 
 namespace TODOLIST.Controllers
 {
@@ -44,7 +45,14 @@ namespace TODOLIST.Controllers
         {
             var model=Mapper.Map<ToDoItemViewModel, ToDoListItem>(toDoItemViewModel);
             toDoItemService.Add(model);
-            return Json(new {issuccess = true},JsonRequestBehavior.AllowGet);
+            return Json(new {issuccess = true});
+        }
+
+        [HttpPost]
+        public JsonResult UpdatePosition(ToDoItemUpdatePositionViewModel toDoItemViewModel)
+        {
+            toDoItemService.UpdatePosition(toDoItemViewModel);
+            return Json(new { issuccess = true });
         }
 
         public ActionResult About()

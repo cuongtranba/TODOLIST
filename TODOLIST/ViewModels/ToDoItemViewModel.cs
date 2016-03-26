@@ -1,4 +1,4 @@
-﻿namespace TODOLIST.Models.ViewModels
+﻿namespace TODOLIST.ViewModels
 {
     public class ToDoItemViewModel : BaseViewModel
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TODOLIST.Models.ViewModels
+namespace TODOLIST.ViewModels
 {
     public class ListTodoItemViewModel
     {

@@ -1,7 +1,24 @@
-﻿$("#sortable").sortable();
+﻿$("#sortable").sortable({
+    start: function (e, ui) {
+        $(this).attr('data-previndex', ui.item.index());
+    },
+    stop: function (event, ui) {
+        var data = $(ui.item).data();
+        var postion = ui.item.index();
+        updatePosition(data, postion);
+    },
+    update: function(event,ui) {
+        
+    }
+});
 $("#sortable").disableSelection();
 
 countTodos();
+
+function updatePosition(data, postion) {
+    $.post("home/updateposition", { id: data.id, Order: postion });
+}
+
 
 // all done btn
 $("#checkAll").click(function () {
@@ -47,6 +64,7 @@ function createTodo(text) {
     var markup = '<li class="ui-state-default"><div class="checkbox"><label><input type="checkbox" value="" />' + text + '</label></div></li>';
     $('#sortable').append(markup);
     $('.add-todo').val('');
+    $("#sortable").trigger("sortupdate");
     $.post("home/Createtodo", { Description: text }, function (data) {
         $(".result").html(data);
     });
