@@ -3,9 +3,7 @@
         $(this).attr('data-previndex', ui.item.index());
     },
     stop: function (event, ui) {
-        var data = $(ui.item).data();
-        var postion = ui.item.index();
-        updatePosition(data, postion);
+        updatePosition();
     },
     update: function(event,ui) {
         
@@ -15,8 +13,21 @@ $("#sortable").disableSelection();
 
 countTodos();
 
-function updatePosition(data, postion) {
-    $.post("home/updateposition", { id: data.id, Order: postion });
+function updatePosition() {
+    var item = $("#sortable li");
+    var itemPostion = [];
+    item.each(function (key, value) {
+        var itemData = $(item[key]).data();
+        var data = { id: itemData.id, Order: key }
+        itemPostion.push(data);
+    });
+    $.ajax({
+        type: "POST",
+        url: "home/updateposition",
+        contentType: 'application/json',
+        data: JSON.stringify({ toDoItemViewModel: itemPostion }),
+    });
+    //$.post("home/updateposition", JSON.stringify({ toDoItemViewModel: itemPostion }));
 }
 
 

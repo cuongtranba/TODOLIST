@@ -13,7 +13,7 @@ namespace TODOLIST.Test
         [Test]
         public void ShouldResolveService()
         {
-            var services = container.Resolve<IServices<ToDoListItem,int>>();
+            var services = container.Resolve<IServices<ToDoListItem>>();
             Assert.IsNotNull(services);
         }
     }

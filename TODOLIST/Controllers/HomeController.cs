@@ -33,11 +33,8 @@ namespace TODOLIST.Controllers
         [ChildActionOnly]
         public ActionResult GetListToDoItem()
         {
-            var model = toDoItemService.GetAll().OrderByDescending(c=>c.Order).ToList();
-
-            var listToDoViewModel = Mapper.Map<List<ToDoListItem>, ListTodoItemViewModel>((List<ToDoListItem>) model);
-
-            return PartialView("ListToDoItem", listToDoViewModel);
+            var model = toDoItemService.GetToDoListItem();
+            return PartialView("ListToDoItem", model);
         }
 
         [HttpPost]
@@ -49,7 +46,7 @@ namespace TODOLIST.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdatePosition(ToDoItemUpdatePositionViewModel toDoItemViewModel)
+        public JsonResult UpdatePosition(List<ToDoItemUpdatePositionViewModel> toDoItemViewModel)
         {
             toDoItemService.UpdatePosition(toDoItemViewModel);
             return Json(new { issuccess = true });

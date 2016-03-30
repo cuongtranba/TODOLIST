@@ -4,13 +4,14 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using TODOLIST.DbContext;
 using TODOLIST.Models.Entity;
 
 namespace TODOLIST.Services.Implements
 {
-    public abstract class BaseService<T, V> where T : BaseEntity
-    {
+    public abstract class BaseService<T> where T : BaseEntity{
         private IDbFactory<ToDoListContext> DbFactory;
         protected DbSet<T> DbSet => DbFactory.GetInstance().Set<T>();
 
@@ -49,10 +50,11 @@ namespace TODOLIST.Services.Implements
             return DbSet.ToList();
         }
 
-        public virtual T GetById(V id)
+        public virtual IQueryable<T> Get()
         {
-            return DbSet.Find(id);
+            return DbSet;
         }
-
+       
     }
+    
 }
