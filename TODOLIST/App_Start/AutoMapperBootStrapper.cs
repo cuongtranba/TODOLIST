@@ -16,7 +16,7 @@ namespace TODOLIST
                 cfg.CreateMap<List<ToDoListItem>, ListTodoItemViewModel>().ForMember(dest => dest.Items, opt => opt.MapFrom(
                                 src => Mapper.Map<List<ToDoListItem>,
                                                   List<ToDoItemViewModel>>(src))).ReverseMap();
-
+                cfg.CreateMap<AddToDoItemViewModel, ToDoListItem>();
             });
         }
     }

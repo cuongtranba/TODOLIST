@@ -162,6 +162,7 @@
     <Compile Include="Models\EntityConfigurations\ToDoListItemConfiguration.cs" />
     <Compile Include="DbContext\ToDoListContext.cs" />
     <Compile Include="Models\Entity\ToDoListItem.cs" />
+    <Compile Include="ViewModels\AddToDoItemViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ListTodoItemViewModel.cs" />
     <Compile Include="ViewModels\ToDoItemUpdatePositionViewModel.cs" />

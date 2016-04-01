@@ -35,5 +35,21 @@ namespace TODOLIST.Services.Implements
             };
             return model;
         }
+
+        public void Add(AddToDoItemViewModel model)
+        {
+            var newitem = Mapper.Map<AddToDoItemViewModel, ToDoListItem>(model);
+            ChangeToDoListItemPosition();
+            base.Add(newitem);
+        }
+
+        private void ChangeToDoListItemPosition()
+        {
+            var todolist = DbSet.ToList();
+            foreach (var item in todolist)
+            {
+                item.Order += 1;
+            }
+        }
     }
 }

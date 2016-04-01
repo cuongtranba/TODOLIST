@@ -38,10 +38,9 @@ namespace TODOLIST.Controllers
         }
 
         [HttpPost]
-        public JsonResult CreateTodo(ToDoItemViewModel toDoItemViewModel)
+        public JsonResult CreateTodo(AddToDoItemViewModel newItem)
         {
-            var model=Mapper.Map<ToDoItemViewModel, ToDoListItem>(toDoItemViewModel);
-            toDoItemService.Add(model);
+            toDoItemService.Add(newItem);
             return Json(new {issuccess = true});
         }
 
