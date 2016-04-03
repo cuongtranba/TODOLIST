@@ -47,12 +47,12 @@ namespace TODOLIST.Services.Implements
 
         public virtual IList<T> GetAll()
         {
-            return DbSet.ToList();
+            return DbSet.Where(c=>c.IsDeleted==false).ToList();
         }
 
         public virtual IQueryable<T> Get()
         {
-            return DbSet;
+            return DbSet.Where(c=>c.IsDeleted==false);
         }
        
     }

@@ -5,8 +5,8 @@
     stop: function (event, ui) {
         updatePosition();
     },
-    update: function(event,ui) {
-        
+    update: function (event, ui) {
+
     }
 });
 $("#sortable").disableSelection();
@@ -52,9 +52,9 @@ $('.add-todo').on('keypress', function (e) {
 // mark task as done
 $('.todolist').on('change', '#sortable li input[type="checkbox"]', function () {
     if ($(this).prop('checked')) {
-        var doneItem = $(this).parent().parent().find('label').text();
-        $(this).parent().parent().parent().addClass('remove');
-        done(doneItem);
+        var item = $(this).closest("li");
+        $(this).closest("li").addClass('remove');
+        done(item);
         countTodos();
     }
 });
@@ -83,10 +83,18 @@ function createTodo(text) {
 
 //mark task as done
 function done(doneItem) {
-    var done = doneItem;
-    var markup = '<li>' + done + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
-    $('#done-items').append(markup);
-    $('.remove').remove();
+    var itemId = $(doneItem).data().id;
+    var tasklabel = $(doneItem).find('label').text();
+    $.post("home/MarkTaskDone", { id: itemId, isDone: true }, function (data) {
+        if (data.isSuccess) {
+            var markup = '<li>' + tasklabel + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>';
+            $('#done-items').append(markup);
+            $('.remove').remove();
+        }
+    });
+
+
+
 }
 
 //mark all tasks as done
@@ -109,5 +117,10 @@ function AllDone() {
 
 //remove done task from list
 function removeItem(element) {
-    $(element).parent().remove();
+    var id = $(element).closest('li').data().id;
+    $.post("home/deletetask", { id: id, isdeleted: true }, function (data) {
+        if (data.isSuccess) {
+            $(element).parent().remove();
+        }
+    });
 }

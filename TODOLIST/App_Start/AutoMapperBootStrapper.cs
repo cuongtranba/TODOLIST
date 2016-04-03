@@ -17,6 +17,9 @@ namespace TODOLIST
                                 src => Mapper.Map<List<ToDoListItem>,
                                                   List<ToDoItemViewModel>>(src))).ReverseMap();
                 cfg.CreateMap<AddToDoItemViewModel, ToDoListItem>();
+                cfg.CreateMap<MarkTaskDoneViewModel, ToDoListItem>();
+                cfg.CreateMap<ToDoListItem, TaskDoneViewModel>();
+                cfg.CreateMap<DeleteTaskViewModel, ToDoListItem>();
             });
         }
     }

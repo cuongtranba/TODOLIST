@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using TODOLIST.DbContext;
 using TODOLIST.Models.Entity;
 using TODOLIST.Services.Interfaces;
 using TODOLIST.ViewModels;
-using TODOLIST.Models;
+
 namespace TODOLIST.Services.Implements
 {
     public class ToDoItemService : BaseService<ToDoListItem>, IToDoItemService
@@ -17,6 +15,7 @@ namespace TODOLIST.Services.Implements
         {
 
         }
+
 
         public void UpdatePosition(List<ToDoItemUpdatePositionViewModel> toDoItemUpdatePositionViewModel)
         {
@@ -39,8 +38,25 @@ namespace TODOLIST.Services.Implements
         public void Add(AddToDoItemViewModel model)
         {
             var newitem = Mapper.Map<AddToDoItemViewModel, ToDoListItem>(model);
-            ChangeToDoListItemPosition();
             base.Add(newitem);
+            ChangeToDoListItemPosition();
+        }
+
+        public void MarkTaskDone(MarkTaskDoneViewModel taskDone)
+        {
+            var entity = Mapper.Map<MarkTaskDoneViewModel, ToDoListItem>(taskDone);
+            Update(entity,e=>e.IsDone);
+        }
+
+        public List<TaskDoneViewModel> GetItemDone()
+        {
+            return Get().Where(c => c.IsDone).ProjectTo<TaskDoneViewModel>().ToList();
+        }
+
+        public void Delete(DeleteTaskViewModel model)
+        {
+            var entity = Mapper.Map<DeleteTaskViewModel, ToDoListItem>(model);
+            Update(entity, e => e.IsDeleted);
         }
 
         private void ChangeToDoListItemPosition()
@@ -51,5 +67,6 @@ namespace TODOLIST.Services.Implements
                 item.Order += 1;
             }
         }
+        
     }
 }

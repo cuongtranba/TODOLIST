@@ -41,15 +41,37 @@ namespace TODOLIST.Controllers
         public JsonResult CreateTodo(AddToDoItemViewModel newItem)
         {
             toDoItemService.Add(newItem);
-            return Json(new {issuccess = true});
+            return Json(new { isSuccess = true});
+        }
+
+        [HttpPost]
+        public JsonResult MarkTaskDone(MarkTaskDoneViewModel taskDone)
+        {
+            toDoItemService.MarkTaskDone(taskDone);
+            return Json(new {isSuccess=true});
         }
 
         [HttpPost]
         public JsonResult UpdatePosition(List<ToDoItemUpdatePositionViewModel> toDoItemViewModel)
         {
             toDoItemService.UpdatePosition(toDoItemViewModel);
-            return Json(new { issuccess = true });
+            return Json(new { isSuccess = true });
         }
+
+        [HttpPost]
+        public JsonResult DeleteTask(DeleteTaskViewModel model)
+        {
+            toDoItemService.Delete(model);
+            return Json(new { isSuccess = true });
+        }
+
+
+        [ChildActionOnly]
+        public ActionResult ListItemDone()
+        {
+            return PartialView(toDoItemService.GetItemDone());
+        }
+
 
         public ActionResult About()
         {

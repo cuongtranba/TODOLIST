@@ -162,9 +162,11 @@
     <Compile Include="Models\EntityConfigurations\ToDoListItemConfiguration.cs" />
     <Compile Include="DbContext\ToDoListContext.cs" />
     <Compile Include="Models\Entity\ToDoListItem.cs" />
+    <Compile Include="ViewModels\TaskDoneViewModel.cs" />
     <Compile Include="ViewModels\AddToDoItemViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ListTodoItemViewModel.cs" />
+    <Compile Include="ViewModels\MarkTaskDoneViewModel.cs" />
     <Compile Include="ViewModels\ToDoItemUpdatePositionViewModel.cs" />
     <Compile Include="ViewModels\ToDoItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="Services\IServices.cs" />
     <Compile Include="Utility\Json.cs" />
     <Compile Include="Utility\StaticResource.cs" />
+    <Compile Include="ViewModels\DeleteTaskViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -246,6 +249,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\ListItemDone.cshtml" />
     <None Include="Views\Home\ListToDoItem.cshtml" />
   </ItemGroup>
   <ItemGroup>

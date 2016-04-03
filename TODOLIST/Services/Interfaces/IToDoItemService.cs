@@ -10,5 +10,8 @@ namespace TODOLIST.Services.Interfaces
         void UpdatePosition(List<ToDoItemUpdatePositionViewModel> toDoItemUpdatePositionViewModel);
         ListTodoItemViewModel GetToDoListItem();
         void Add(AddToDoItemViewModel model);
+        void MarkTaskDone(MarkTaskDoneViewModel id);
+        List<TaskDoneViewModel> GetItemDone();
+        void Delete(DeleteTaskViewModel model);
     }
 }
