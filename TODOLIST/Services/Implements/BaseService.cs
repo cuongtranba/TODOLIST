@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using TODOLIST.DbContext;
 using TODOLIST.Models.Entity;
 
 namespace TODOLIST.Services.Implements
 {
-    public abstract class BaseService<T> where T : BaseEntity{
+    public abstract class BaseService<T> where T : BaseEntity
+    {
         private IDbFactory<ToDoListContext> DbFactory;
         protected DbSet<T> DbSet => DbFactory.GetInstance().Set<T>();
 
@@ -47,14 +45,14 @@ namespace TODOLIST.Services.Implements
 
         public virtual IList<T> GetAll()
         {
-            return DbSet.Where(c=>c.IsDeleted==false).ToList();
+            return DbSet.Where(c => c.IsDeleted == false).ToList();
         }
 
         public virtual IQueryable<T> Get()
         {
-            return DbSet.Where(c=>c.IsDeleted==false);
+            return DbSet.Where(c => c.IsDeleted == false);
         }
-       
+
     }
-    
+
 }

@@ -157,6 +157,14 @@
     <Compile Include="Migrations\201603211605346_AddOrderField.Designer.cs">
       <DependentUpon>201603211605346_AddOrderField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604040505067_AddDoneTimeToTask.cs" />
+    <Compile Include="Migrations\201604040505067_AddDoneTimeToTask.Designer.cs">
+      <DependentUpon>201604040505067_AddDoneTimeToTask.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604040505539_AddDoneTimeToTaskFix.cs" />
+    <Compile Include="Migrations\201604040505539_AddDoneTimeToTaskFix.Designer.cs">
+      <DependentUpon>201604040505539_AddDoneTimeToTaskFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entity\BaseEntity.cs" />
     <Compile Include="Models\EntityConfigurations\ToDoListItemConfiguration.cs" />
@@ -269,6 +277,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201603211605346_AddOrderField.resx">
       <DependentUpon>201603211605346_AddOrderField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604040505067_AddDoneTimeToTask.resx">
+      <DependentUpon>201604040505067_AddDoneTimeToTask.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604040505539_AddDoneTimeToTaskFix.resx">
+      <DependentUpon>201604040505539_AddDoneTimeToTaskFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
