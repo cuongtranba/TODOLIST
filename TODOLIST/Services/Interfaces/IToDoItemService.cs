@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TODOLIST.Models.Entity;
 using TODOLIST.ViewModels;
 
@@ -13,5 +12,6 @@ namespace TODOLIST.Services.Interfaces
         void MarkTaskDone(MarkTaskDoneViewModel id);
         List<TaskDoneViewModel> GetItemDone();
         void Delete(DeleteTaskViewModel model);
+        void MarkAllTaskDone(List<MarkTaskDoneViewModel> models);
     }
 }

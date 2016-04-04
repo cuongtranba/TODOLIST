@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using System.Collections.Generic;
+using System.Linq;
 using TODOLIST.DbContext;
 using TODOLIST.Models.Entity;
 using TODOLIST.Services.Interfaces;
@@ -19,7 +19,7 @@ namespace TODOLIST.Services.Implements
 
         public void UpdatePosition(List<ToDoItemUpdatePositionViewModel> toDoItemUpdatePositionViewModel)
         {
-            var model = Mapper.Map<List<ToDoItemUpdatePositionViewModel>,List< ToDoListItem>>(toDoItemUpdatePositionViewModel);
+            var model = Mapper.Map<List<ToDoItemUpdatePositionViewModel>, List<ToDoListItem>>(toDoItemUpdatePositionViewModel);
             foreach (var item in model)
             {
                 Update(item, c => c.Order);
@@ -30,7 +30,7 @@ namespace TODOLIST.Services.Implements
         {
             var model = new ListTodoItemViewModel
             {
-                Items = Get().ProjectTo<ToDoItemViewModel>().OrderBy(c=>c.Order).ToList()
+                Items = Get().Where(c => c.IsDone == false).ProjectTo<ToDoItemViewModel>().OrderBy(c => c.Order).ToList()
             };
             return model;
         }
@@ -45,7 +45,7 @@ namespace TODOLIST.Services.Implements
         public void MarkTaskDone(MarkTaskDoneViewModel taskDone)
         {
             var entity = Mapper.Map<MarkTaskDoneViewModel, ToDoListItem>(taskDone);
-            Update(entity,e=>e.IsDone);
+            Update(entity, e => e.IsDone);
         }
 
         public List<TaskDoneViewModel> GetItemDone()
@@ -59,6 +59,15 @@ namespace TODOLIST.Services.Implements
             Update(entity, e => e.IsDeleted);
         }
 
+        public void MarkAllTaskDone(List<MarkTaskDoneViewModel> models)
+        {
+            var entity = Mapper.Map<List<MarkTaskDoneViewModel>, List<ToDoListItem>>(models);
+            foreach (var toDoListItem in entity)
+            {
+                Update(toDoListItem, e => e.IsDone);
+            }
+        }
+
         private void ChangeToDoListItemPosition()
         {
             var todolist = DbSet.ToList();
@@ -67,6 +76,6 @@ namespace TODOLIST.Services.Implements
                 item.Order += 1;
             }
         }
-        
+
     }
 }

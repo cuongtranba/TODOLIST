@@ -25,9 +25,8 @@ function updatePosition() {
         type: "POST",
         url: "home/updateposition",
         contentType: 'application/json',
-        data: JSON.stringify({ toDoItemViewModel: itemPostion }),
+        data: JSON.stringify({ toDoItemViewModel: itemPostion })
     });
-    //$.post("home/updateposition", JSON.stringify({ toDoItemViewModel: itemPostion }));
 }
 
 
@@ -39,14 +38,12 @@ $("#checkAll").click(function () {
 //create todo
 $('.add-todo').on('keypress', function (e) {
     e.preventDefault;
-    if (e.which == 13) {
+    if (e.which === 13) {
         if ($(this).val()) {
             var todo = $(this).val();
             createTodo(todo);
             countTodos();
-        } else {
-            // some validation
-        }
+        } 
     }
 });
 // mark task as done
@@ -72,12 +69,14 @@ function countTodos() {
 
 //create task
 function createTodo(text) {
-    var markup = '<li class="ui-state-default"><div class="checkbox"><label><input type="checkbox" value="" />' + text + '</label></div></li>';
-    $('#sortable').append(markup);
-    $('.add-todo').val('');
-    $("#sortable").trigger("sortupdate");
     $.post("home/Createtodo", { Description: text }, function (data) {
-        $(".result").html(data);
+        if (data.isSuccess) {
+            var markup = '<li class="ui-state-default"><div class="checkbox"><label><input type="checkbox" value="" />' + text + '</label></div></li>';
+            $('#sortable').append(markup);
+            $('.add-todo').val('');
+            $("#sortable").trigger("sortupdate");
+            $(".result").html(data);
+        }
     });
 }
 
@@ -100,19 +99,41 @@ function done(doneItem) {
 //mark all tasks as done
 function AllDone() {
     var myArray = [];
+    var tasks = [];
 
-    $('#sortable li').each(function () {
-        myArray.push($(this).text());
-    });
+    (function() {
+        $('#sortable li').each(function () {
+            myArray.push($(this).text());
+            var taskData = { id: $(this).data().id, isdone: true };
+            tasks.push(taskData);
+        });
+    })();
 
-    // add to done
-    for (i = 0; i < myArray.length; i++) {
-        $('#done-items').append('<li>' + myArray[i] + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>');
+    var updateUi = function () {
+        // add to done
+        for (i = 0; i < myArray.length; i++) {
+            $('#done-items').append('<li>' + myArray[i] + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>');
+        }
+
+        // myArray
+        $('#sortable li').remove();
+        countTodos();
     }
 
-    // myArray
-    $('#sortable li').remove();
-    countTodos();
+    this.markTaskDone = function() {
+        $.ajax({
+            type: "POST",
+            url: "home/MarkAllTaskDone",
+            contentType: 'application/json',
+            data: JSON.stringify({ models: tasks }),
+            success: function(data) {
+                if (data.isSuccess) {
+                    updateUi();
+                }
+            }
+        });
+    };
+    markTaskDone();
 }
 
 //remove done task from list

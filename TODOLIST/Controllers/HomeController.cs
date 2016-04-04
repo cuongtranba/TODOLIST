@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Autofac;
-using AutoMapper;
-using TODOLIST.DbContext;
-using TODOLIST.Models.Entity;
-using TODOLIST.Services;
 using TODOLIST.Services.Interfaces;
 using TODOLIST.ViewModels;
 
@@ -41,14 +32,14 @@ namespace TODOLIST.Controllers
         public JsonResult CreateTodo(AddToDoItemViewModel newItem)
         {
             toDoItemService.Add(newItem);
-            return Json(new { isSuccess = true});
+            return Json(new { isSuccess = true });
         }
 
         [HttpPost]
         public JsonResult MarkTaskDone(MarkTaskDoneViewModel taskDone)
         {
             toDoItemService.MarkTaskDone(taskDone);
-            return Json(new {isSuccess=true});
+            return Json(new { isSuccess = true });
         }
 
         [HttpPost]
@@ -65,6 +56,12 @@ namespace TODOLIST.Controllers
             return Json(new { isSuccess = true });
         }
 
+        [HttpPost]
+        public JsonResult MarkAllTaskDone(List<MarkTaskDoneViewModel> models)
+        {
+            toDoItemService.MarkAllTaskDone(models);
+            return Json(new { isSuccess = true });
+        }
 
         [ChildActionOnly]
         public ActionResult ListItemDone()
