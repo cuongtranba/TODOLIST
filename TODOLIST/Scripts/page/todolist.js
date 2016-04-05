@@ -111,7 +111,7 @@ function AllDone() {
 
     var updateUi = function () {
         // add to done
-        for (i = 0; i < myArray.length; i++) {
+        for (var i = 0; i < myArray.length; i++) {
             $('#done-items').append('<li>' + myArray[i] + '<button class="btn btn-default btn-xs pull-right  remove-item"><span class="glyphicon glyphicon-remove"></span></button></li>');
         }
 

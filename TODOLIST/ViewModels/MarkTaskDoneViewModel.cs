@@ -1,12 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace TODOLIST.ViewModels
 {
-    public class MarkTaskDoneViewModel:BaseViewModel
+    public class MarkTaskDoneViewModel : BaseViewModel
     {
         public bool IsDone { get; set; }
+
+        public DateTime? DoneTime
+        {
+            get
+            {
+                if (IsDone)
+                {
+                    return DateTime.Now;
+                }
+                return null;
+            }
+        }
     }
 }

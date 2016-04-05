@@ -22,7 +22,7 @@ namespace TODOLIST.Services.Implements
             var model = Mapper.Map<List<ToDoItemUpdatePositionViewModel>, List<ToDoListItem>>(toDoItemUpdatePositionViewModel);
             foreach (var item in model)
             {
-                Update(item, c => c.Order);
+                Update(item, toDoItemUpdatePositionViewModel.GetType().GetProperties());
             }
         }
 
@@ -44,8 +44,7 @@ namespace TODOLIST.Services.Implements
 
         public void MarkTaskDone(MarkTaskDoneViewModel taskDone)
         {
-            var entity = Mapper.Map<MarkTaskDoneViewModel, ToDoListItem>(taskDone);
-            Update(entity, e => e.IsDone);
+            Update(taskDone);
         }
 
         public List<TaskDoneViewModel> GetItemDone()
@@ -55,16 +54,18 @@ namespace TODOLIST.Services.Implements
 
         public void Delete(DeleteTaskViewModel model)
         {
-            var entity = Mapper.Map<DeleteTaskViewModel, ToDoListItem>(model);
-            Update(entity, e => e.IsDeleted);
+            Update(model);
         }
 
         public void MarkAllTaskDone(List<MarkTaskDoneViewModel> models)
         {
             var entity = Mapper.Map<List<MarkTaskDoneViewModel>, List<ToDoListItem>>(models);
-            foreach (var toDoListItem in entity)
+            if (entity.Any())
             {
-                Update(toDoListItem, e => e.IsDone);
+                foreach (var toDoListItem in entity)
+                {
+                    Update(toDoListItem, models.GetType().GetProperties());
+                }
             }
         }
 
