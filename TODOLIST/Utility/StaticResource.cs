@@ -7,7 +7,7 @@ namespace TODOLIST.Utility
 {
     public static class StaticResource
     {
-     
+        
 
     }
 }

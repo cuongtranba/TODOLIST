@@ -170,6 +170,7 @@
     <Compile Include="Models\EntityConfigurations\ToDoListItemConfiguration.cs" />
     <Compile Include="DbContext\ToDoListContext.cs" />
     <Compile Include="Models\Entity\ToDoListItem.cs" />
+    <Compile Include="Utility\JsonHelper.cs" />
     <Compile Include="ViewModels\TaskDoneViewModel.cs" />
     <Compile Include="ViewModels\AddToDoItemViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
@@ -182,7 +183,6 @@
     <Compile Include="Services\Implements\ToDoItemService.cs" />
     <Compile Include="Services\Interfaces\IToDoItemService.cs" />
     <Compile Include="Services\IServices.cs" />
-    <Compile Include="Utility\Json.cs" />
     <Compile Include="Utility\StaticResource.cs" />
     <Compile Include="ViewModels\DeleteTaskViewModel.cs" />
   </ItemGroup>

@@ -1,13 +1,15 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using TODOLIST.DbContext;
 using TODOLIST.Models.Entity;
 
 namespace TODOLIST.Services.Implements
 {
-    public abstract class BaseService<T> where T : BaseEntity
+    public abstract class BaseService<T,V> where T : BaseEntity<V>
     {
         private IDbFactory<ToDoListContext> DbFactory;
         protected DbSet<T> DbSet => DbFactory.GetInstance().Set<T>();
@@ -23,41 +25,35 @@ namespace TODOLIST.Services.Implements
         }
 
         //ref http://stackoverflow.com/questions/15336248/entity-framework-5-updating-a-record
-        public void Update(T model, PropertyInfo[] propertiesToUpdate)
+        public void Update(T model, params Expression<Func<T, object>>[] propertiesToUpdate)
         {
             DbFactory.GetInstance().Set<T>().Attach(model);
-
             foreach (var p in propertiesToUpdate)
             {
-                DbFactory.GetInstance().Entry(model).Property(p.Name).IsModified = true;
+                DbFactory.GetInstance().Entry(model).Property(p).IsModified = true;
             }
         }
-
-        public void Update<TModel>(TModel viewModel)
-        {
-            T entity = Mapper.Map<TModel, T>(viewModel);
-            DbFactory.GetInstance().Set<T>().Attach(entity);
-            foreach (var propertyInfo in viewModel.GetType().GetProperties())
-            {
-                DbFactory.GetInstance().Entry(entity).Property(propertyInfo.Name).IsModified = true;
-            }
-        }
-
-
+   
         public virtual void Delete(T model)
         {
             model.IsDeleted = true;
         }
         public virtual void Add(T model)
         {
-            DbSet.Add(model);
+            DbFactory.GetInstance().Entry(model).State=EntityState.Added;
         }
+
+        public virtual V GetIdAfterAdd(T Model)
+        {
+            DbFactory.GetInstance().Entry(Model).State = EntityState.Added;
+            DbFactory.GetInstance().SaveChange();
+            return Model.Id;
+        }
+
 
         public virtual IQueryable<T> Get()
         {
             return DbSet.Where(c => c.IsDeleted == false);
         }
-
     }
-
 }

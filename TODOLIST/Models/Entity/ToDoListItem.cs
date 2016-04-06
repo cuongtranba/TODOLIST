@@ -2,7 +2,7 @@
 
 namespace TODOLIST.Models.Entity
 {
-    public class ToDoListItem : BaseEntity
+    public class ToDoListItem : BaseEntity<int>
     {
         public string Description { get; set; }
         public bool IsDone { get; set; }

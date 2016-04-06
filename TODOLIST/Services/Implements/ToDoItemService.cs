@@ -9,7 +9,7 @@ using TODOLIST.ViewModels;
 
 namespace TODOLIST.Services.Implements
 {
-    public class ToDoItemService : BaseService<ToDoListItem>, IToDoItemService
+    public class ToDoItemService : BaseService<ToDoListItem,int>, IToDoItemService
     {
         public ToDoItemService(IDbFactory<ToDoListContext> dbFactory) : base(dbFactory)
         {
@@ -22,7 +22,7 @@ namespace TODOLIST.Services.Implements
             var model = Mapper.Map<List<ToDoItemUpdatePositionViewModel>, List<ToDoListItem>>(toDoItemUpdatePositionViewModel);
             foreach (var item in model)
             {
-                Update(item, toDoItemUpdatePositionViewModel.GetType().GetProperties());
+                Update(item, c=>c.Order);
             }
         }
 
@@ -42,9 +42,19 @@ namespace TODOLIST.Services.Implements
             ChangeToDoListItemPosition();
         }
 
+        public int GetIdAfterAdd(AddToDoItemViewModel model)
+        {
+            var newitem = Mapper.Map<AddToDoItemViewModel, ToDoListItem>(model);
+            GetIdAfterAdd(newitem);
+            ChangeToDoListItemPosition();
+            return newitem.Id;
+        }
+
+
         public void MarkTaskDone(MarkTaskDoneViewModel taskDone)
         {
-            Update(taskDone);
+            var entity = Mapper.Map<MarkTaskDoneViewModel, ToDoListItem>(taskDone);
+            Update(entity,c=>c.IsDone);
         }
 
         public List<TaskDoneViewModel> GetItemDone()
@@ -54,7 +64,8 @@ namespace TODOLIST.Services.Implements
 
         public void Delete(DeleteTaskViewModel model)
         {
-            Update(model);
+            var entity = Mapper.Map<DeleteTaskViewModel, ToDoListItem>(model);
+            Update(entity,c=>c.IsDeleted);
         }
 
         public void MarkAllTaskDone(List<MarkTaskDoneViewModel> models)
@@ -64,7 +75,7 @@ namespace TODOLIST.Services.Implements
             {
                 foreach (var toDoListItem in entity)
                 {
-                    Update(toDoListItem, models.GetType().GetProperties());
+                    Update(toDoListItem, c => c.IsDone);
                 }
             }
         }

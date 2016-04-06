@@ -1,4 +1,6 @@
-﻿namespace TODOLIST.ViewModels
+﻿using AutoMapper;
+
+namespace TODOLIST.ViewModels
 {
     public abstract class BaseViewModel
     {

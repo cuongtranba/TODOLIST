@@ -11,13 +11,12 @@ namespace TODOLIST.Controllers
         {
             dbFactory.SaveChange();
         }
-
         protected override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             var result = filterContext.Result as JsonResult;
             if (result != null)
             {
-                result.JsonRequestBehavior=JsonRequestBehavior.AllowGet;
+                result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             }
         }
     }

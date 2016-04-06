@@ -3,11 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TODOLIST.Models.Entity
 {
-    public abstract class BaseEntity
+    public abstract class BaseEntity<V>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public V Id { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

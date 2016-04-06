@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using TODOLIST.Services.Interfaces;
+using TODOLIST.Utility;
 using TODOLIST.ViewModels;
 
 namespace TODOLIST.Controllers
@@ -18,6 +19,7 @@ namespace TODOLIST.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Title = "ToDoList";
             return View();
         }
 
@@ -31,36 +33,42 @@ namespace TODOLIST.Controllers
         [HttpPost]
         public JsonResult CreateTodo(AddToDoItemViewModel newItem)
         {
-            toDoItemService.Add(newItem);
-            return Json(new { isSuccess = true });
+            var id = toDoItemService.GetIdAfterAdd(newItem);
+            return JsonHelper.SuccessJsonResult().Append(new { id });
         }
+
+        public JsonResult GetTask()
+        {
+            return JsonHelper.SuccessJsonResult();
+        }
+
 
         [HttpPost]
         public JsonResult MarkTaskDone(MarkTaskDoneViewModel taskDone)
         {
             toDoItemService.MarkTaskDone(taskDone);
-            return Json(new { isSuccess = true });
+            return JsonHelper.SuccessJsonResult();
         }
 
         [HttpPost]
         public JsonResult UpdatePosition(List<ToDoItemUpdatePositionViewModel> toDoItemViewModel)
         {
             toDoItemService.UpdatePosition(toDoItemViewModel);
-            return Json(new { isSuccess = true });
+            return JsonHelper.SuccessJsonResult();
         }
 
         [HttpPost]
         public JsonResult DeleteTask(DeleteTaskViewModel model)
         {
             toDoItemService.Delete(model);
-            return Json(new { isSuccess = true });
+            return JsonHelper.SuccessJsonResult();
         }
 
         [HttpPost]
         public JsonResult MarkAllTaskDone(List<MarkTaskDoneViewModel> models)
         {
             toDoItemService.MarkAllTaskDone(models);
-            return Json(new { isSuccess = true });
+            return JsonHelper.SuccessJsonResult();
         }
 
         [ChildActionOnly]
