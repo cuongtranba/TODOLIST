@@ -8,14 +8,24 @@
                 <button id="checkAll" class="btn btn-success">Mark all as done</button>
 
                 <hr>
-                @Html.Action("GetListToDoItem","Home")
-                
-              
+                @Html.Action("GetListToDoItem", "Home")
+
+
             </div>
         </div>
         <div class="col-md-6">
-            @Html.Action("ListItemDone","Home")
+            @Html.Action("ListItemDone", "Home")
         </div>
     </div>
 </div>
-<script src="~/Scripts/page/todolist.js"></script>
+
+@section scripts
+{
+    <script>
+        require(["todolist"],
+            function (todolist) {
+                todolist.init();
+            }
+        );
+    </script>
+}
