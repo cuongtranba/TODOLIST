@@ -226,7 +226,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\app\test.js" />
+    <Content Include="Scripts\app\taskcontroller.js" />
+    <Content Include="Scripts\lib\helper.js" />
     <Content Include="Scripts\lib\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\lib\jquery-ui-1.11.4.min.js" />
     <Content Include="Scripts\lib\bootstrap.js" />
@@ -244,7 +245,6 @@
     <Content Include="Scripts\lib\respond.min.js" />
     <Content Include="Scripts\lib\_references.js" />
     <Content Include="Scripts\main.js" />
-    <Content Include="Scripts\app\todolist.js" />
     <Content Include="Scripts\lib\r.js" />
     <Content Include="Scripts\lib\require.js" />
     <Content Include="Web.config" />
